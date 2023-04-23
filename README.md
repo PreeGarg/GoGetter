@@ -7,3 +7,8 @@
     3. Add HTML
     4. Add CSS
     5. The colors of the header (https://www.canva.com/colors/color-palettes/space-for-everything/)
+3) Add the side bar
+    1. Generate the component 
+    2. Add the side bar component in the app.component.html file 
+    3. Add HTML
+    4. Add CSS 
