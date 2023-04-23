@@ -27,5 +27,7 @@
             1) Add ts (inject the goal service into the home component to display the data)
             2) Add html (add elements to display the goal data object)
             3) Add css (use this to organize and make it prettier)
-    
+5) Adding the enum class to the share/models path
+    1) Create the enum class
+    2) Upddate the data.ts so that the category calls the enum class for the category 
 
