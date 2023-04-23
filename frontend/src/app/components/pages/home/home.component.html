@@ -1,0 +1,38 @@
+
+
+<ul>
+  <li *ngFor="let goal of goals">
+    <!--TODO: FIX THIS ROUTE LATER TO ROUTE TO THE APPROPRIATE GOAL-->
+    <a routerLink="/category/{{goal.goalID}}">
+      <!--using the [] for the name of the attributes we can passed dynamic data to it.
+        Removing it will just be a literal string. To make it dynamic without the [] do this -> src = "{{food.imageUrl}}". {{}} the guy said he prefer to use it to show partially dynamic-->
+      <div class = "content">
+
+        <!--Create the header of the goal-->
+        <header>
+          <div class = "title">
+            {{"Goal: "}} {{goal.title}}
+          </div>
+        </header>
+
+        <!---This is to display the description of the goal-->
+        <div class = "description">
+          {{"Description: "}}{{goal.description}}
+        </div>
+
+        <!--This is to display the start date-->
+        <div class = "startDate">
+          {{"StartDate: "}}{{goal.startDate}}
+        </div>
+
+        <!--This is to display the end date-->
+        <div class = "endDate">
+          {{"EndDate: "}}{{goal.endDate}}
+        </div>
+
+      </div>
+    </a>
+  </li>
+</ul>
+
+
