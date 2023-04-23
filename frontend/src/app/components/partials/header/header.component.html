@@ -1,0 +1,23 @@
+<header>
+  <div class="container">
+    <!--The routerlink allows you to go different roads on the client side -->
+    <a routerLink="/" class = "logo">GoGetter</a>
+    <!--Adding the nav tag-->
+    <nav>
+      <ul>
+        <!--Adding the summary report route-->
+        <li>
+          <a routerLink="/summaryreport">📈</a>
+        </li>
+        <!--This is a drop down menu for the user that contains the user profile setting and the logout button -->
+        <li class="menu-container">
+          <a routerLink="/dashboard">Jennie</a>
+            <div class="menu">
+              <a routerLink="/profile">Profile</a>
+              <a>Logout</a>
+            </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
