@@ -4,8 +4,8 @@ import { CategoryEnum } from "./CategoryEnum";
 // Note the variable ! means that this variable is required
 
 export class GoalModel{
-  goalID!: number;
-  studentID!: number;
+  goalId!: number;
+  userId!: number;
   title!: string;
   description?: string;
   startDate?: Date;
