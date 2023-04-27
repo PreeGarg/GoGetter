@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GoalModel = void 0;
 const DataAccess_1 = require("./../DataAccess");
+const CategoryEnum_1 = require("../enum/CategoryEnum");
+const ProgressEnum_1 = require("../enum/ProgressEnum");
 const Mongoose = require("mongoose");
 let mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
 let mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
@@ -12,19 +14,21 @@ class GoalModel {
     }
     createSchema() {
         this.schema = new Mongoose.Schema({
-            goalId: Number,
-            title: String,
-            description: String,
-            userId: Number,
-            startDate: Date,
-            endDate: Date,
+            goalId: { type: String, required: true },
+            userId: { type: String, required: true },
+            title: { type: String, required: true },
+            description: { type: String },
+            startDate: { type: Date },
+            endDate: { type: Date },
             category: {
                 type: String,
-                enum: ['School', 'Health', 'Career', 'Relationship', 'Reading', 'Travel']
+                enum: [CategoryEnum_1.CategoryEnum.School, CategoryEnum_1.CategoryEnum.Health, CategoryEnum_1.CategoryEnum.Career, CategoryEnum_1.CategoryEnum.Relationship, CategoryEnum_1.CategoryEnum.Reading, CategoryEnum_1.CategoryEnum.Travel],
+                required: true
             },
             progress: {
                 type: String,
-                enum: ['Not Started', 'In progress', 'Completed']
+                enum: [ProgressEnum_1.ProgressEnum.NotStarted, ProgressEnum_1.ProgressEnum.InProgress, ProgressEnum_1.ProgressEnum.Completed],
+                default: ProgressEnum_1.ProgressEnum.NotStarted
             },
             reminder: Boolean,
         }, { collection: 'goals' });

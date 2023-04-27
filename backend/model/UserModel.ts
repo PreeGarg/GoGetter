@@ -1,5 +1,6 @@
 import {DataAccess} from '../DataAccess';
 import {IUserModel} from '../interfaces/IUserModel';
+import { FavoriteEnum } from '../enum/FavoriteEnum';
 import { STATUS_CODES } from "http";
 import Mongoose = require("mongoose");
 
@@ -19,17 +20,18 @@ class UserModel {
     public createSchema(): void {
         this.schema = new Mongoose.Schema(
             {
-                userId: Number,
-                name: String,
-                email: String,
+                userId: {type: String, required: true},
+                name: {type: String, required: true},
+                email: {type: String, required: true},
                 goalList:[
                     {
-                        goalId: Number
+                        goalId: String  // TODO: is it better to change this to {type:[GoalModel.schema] ?? }
                     }
                 ],
                 favoriteView: {
                     type: String,
-                    enum: ['Category', 'Timeline']
+                    enum: [FavoriteEnum.Category, FavoriteEnum.Timeline],
+                    default: FavoriteEnum.Category
                 },
             }, {collection: 'users'}
         );
@@ -41,20 +43,17 @@ class UserModel {
     
     public retrieveUserDetails(response:any, filter:Object) {
         var query = this.model.findOne(filter);
-        query.exec((itemArray: any) => {
+        query.exec((err, itemArray: any) => {
             response.json(itemArray);
         });
     }
 
     public retrieveAllUsers(response:any): any {
         var query = this.model.find({});
-        query.exec( (err, itemArray) => {
+        query.exec( (err, itemArray: any) => {
             response.json(itemArray) ;
         });
     }
-
-    // class digram CRUD operation 
-
-
+    
 }
 export {UserModel};

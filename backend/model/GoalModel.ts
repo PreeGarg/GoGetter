@@ -1,5 +1,7 @@
 import {DataAccess} from './../DataAccess';
 import {IGoalModel} from '../interfaces/IGoalModel';
+import { CategoryEnum } from '../enum/CategoryEnum';
+import { ProgressEnum } from '../enum/ProgressEnum';
 import { STATUS_CODES } from "http";
 import Mongoose = require("mongoose");
 
@@ -19,19 +21,21 @@ class GoalModel {
     public createSchema(): void {
         this.schema = new Mongoose.Schema(
             {
-                goalId: Number,
-                title: String,
-                description: String,
-                userId: Number,
-                startDate: Date,
-                endDate: Date,
+                goalId: {type: String, required: true},
+                userId: {type: String, required: true},
+                title: {type: String, required: true},
+                description: {type: String},
+                startDate: {type: Date},
+                endDate: {type: Date},
                 category: {
                     type: String,
-                    enum: ['School', 'Health', 'Career', 'Relationship','Reading','Travel']
+                    enum: [CategoryEnum.School, CategoryEnum.Health, CategoryEnum.Career, CategoryEnum.Relationship,CategoryEnum.Reading, CategoryEnum.Travel],
+                    required: true
                 },
                 progress: {
                     type: String,
-                    enum: ['Not Started', 'In progress', 'Completed']
+                    enum: [ProgressEnum.NotStarted, ProgressEnum.InProgress, ProgressEnum.Completed],
+                    default: ProgressEnum.NotStarted
                 },
                 reminder: Boolean,
             }, {collection: 'goals'}
