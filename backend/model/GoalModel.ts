@@ -29,7 +29,10 @@ class GoalModel {
                     type: String,
                     enum: ['School', 'Health', 'Career', 'Relationship','Reading','Travel']
                 },
-                progress: String,
+                progress: {
+                    type: String,
+                    enum: ['Not Started', 'In progress', 'Completed']
+                },
                 reminder: Boolean,
             }, {collection: 'goals'}
         );

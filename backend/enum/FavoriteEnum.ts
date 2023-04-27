@@ -3,4 +3,4 @@ enum FavoriteEnum {
     Timeline = "Timeline",
   }
 
-  export {FavoriteEnum};
+export {FavoriteEnum};

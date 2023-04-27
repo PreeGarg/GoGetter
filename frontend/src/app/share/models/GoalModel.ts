@@ -1,4 +1,5 @@
 import { CategoryEnum } from "./CategoryEnum";
+import { ProgressEnum } from "./ProgressEnum";
 
 // This is the goal model class.
 // Note the variable ! means that this variable is required
@@ -11,6 +12,6 @@ export class GoalModel{
   startDate?: Date;
   endDate?: Date;
   category!: CategoryEnum;
-  progress?: string;
+  progress?: ProgressEnum;
   reminder?: boolean;
 }

@@ -1,4 +1,6 @@
 import {CategoryEnum} from '../enum/CategoryEnum'
+import {ProgressEnum} from '../enum/ProgressEnum'
+
 import Mongoose = require("mongoose");
 
 interface IGoalModel extends Mongoose.Document {
@@ -9,7 +11,7 @@ interface IGoalModel extends Mongoose.Document {
     startDate: Date;
     endDate: Date;
     category: CategoryEnum;
-    progress: string;
+    progress: ProgressEnum;
     reminder: boolean;
 }
 export {IGoalModel};
