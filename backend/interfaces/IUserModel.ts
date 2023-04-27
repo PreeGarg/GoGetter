@@ -2,12 +2,12 @@ import {FavoriteEnum} from '../enum/FavoriteEnum'
 import Mongoose = require("mongoose");
 
 interface IUserModel extends Mongoose.Document {
-    userId: number;
+    userId: string;
     name: string;
     email: string;
     goalList: [
         {
-            goalId: number
+            goalId: string
         }
     ];
     favoriteView: FavoriteEnum

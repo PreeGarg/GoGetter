@@ -54,6 +54,11 @@ class UserModel {
             response.json(itemArray) ;
         });
     }
-    
+
+    public async checkUserExists(filter: Object): Promise<boolean> {
+        const userFound = await this.model.findOne(filter);
+        return userFound !== null;
+    }
+
 }
 export {UserModel};
