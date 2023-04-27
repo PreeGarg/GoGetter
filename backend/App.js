@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const express = require("express");
 const bodyParser = require("body-parser");
-// import asyncHandler from 'express-async-handler';
 const GoalModel_1 = require("./model/GoalModel");
 const UserModel_1 = require("./model/UserModel");
 // import crypto module from Node.js to create Hash

@@ -4,12 +4,12 @@ import { FavoriteEnum } from "./FavoriteEnum";
 // Note the variable ! means that this variable is required
 
 export class UserModel{
-  userId!: number;
+  userId!: string;
   name!: string;
   email!: string;
   goalList?: [
     {
-        goalId: number
+        goalId: string
     }];
     favoriteView?: FavoriteEnum
 }

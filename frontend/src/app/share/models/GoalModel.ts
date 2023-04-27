@@ -5,8 +5,8 @@ import { ProgressEnum } from "./ProgressEnum";
 // Note the variable ! means that this variable is required
 
 export class GoalModel{
-  goalId!: number;
-  userId!: number;
+  goalId!: string;
+  userId!: string;
   title!: string;
   description?: string;
   startDate?: Date;

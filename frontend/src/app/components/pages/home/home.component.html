@@ -3,7 +3,7 @@
 <ul>
   <li *ngFor="let goal of goals">
     <!--TODO: FIX THIS ROUTE LATER TO ROUTE TO THE APPROPRIATE GOAL-->
-    <a routerLink="/category/{{goal.goalID}}">
+    <a routerLink="/category/{{goal.goalId}}">
       <!--using the [] for the name of the attributes we can passed dynamic data to it.
         Removing it will just be a literal string. To make it dynamic without the [] do this -> src = "{{food.imageUrl}}". {{}} the guy said he prefer to use it to show partially dynamic-->
       <div class = "content">
