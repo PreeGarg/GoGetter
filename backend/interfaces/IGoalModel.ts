@@ -1,13 +1,14 @@
+import {CategoryEnum} from '../enum/CategoryEnum'
 import Mongoose = require("mongoose");
 
 interface IGoalModel extends Mongoose.Document {
     goalId: number;
     title: string;
     description: string;
-    studentId: number;
+    userId: number;
     startDate: Date;
     endDate: Date;
-    category: string;
+    category: CategoryEnum;
     progress: string;
     reminder: boolean;
 }

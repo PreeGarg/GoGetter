@@ -22,10 +22,13 @@ class GoalModel {
                 goalId: Number,
                 title: String,
                 description: String,
-                studentId: Number,
+                userId: Number,
                 startDate: Date,
                 endDate: Date,
-                category: String,
+                category: {
+                    type: String,
+                    enum: ['School', 'Health', 'Career', 'Relationship','Reading','Travel']
+                },
                 progress: String,
                 reminder: Boolean,
             }, {collection: 'goals'}
