@@ -7,7 +7,7 @@ goalsCollection.insert(
 	goalId: 1,
 	title: "Intermittent Fasting",
 	description: "Follow 16:8 fasting rule for 30 days",
-	studentId: 11,
+	userId: 1,
 	startDate: new Date(),
 	endDate: new Date(),
 	category: "Health",
@@ -20,7 +20,7 @@ goalsCollection.insert(
 	goalId: 2,
 	title: "Learn typescript",
 	description: "Follow typescript course on courseera",
-	studentId: 11,
+	userId: 1,
 	startDate: new Date(),
 	endDate: new Date(),
 	category: "Career",
@@ -29,11 +29,39 @@ goalsCollection.insert(
 }
 )
 
-db.createCollection('students')
-studentsCollection = db.getCollection("students")
-studentsCollection.remove({})
-studentsCollection.insert({
-    studentId: 1,
+goalsCollection.insert(
+{
+    goalId: 3,
+    title: "Trekking",
+    description: "Take lessons on trekking dos and donts",
+    userId: 1,
+    startDate: new Date(),
+    endDate: new Date(),
+    category: "Travel",
+    progress: "Not Started",
+    reminder: false,
+}
+)
+
+goalsCollection.insert(
+{
+    goalId: 4,
+    title: "Eat more protein",
+    description: "intake vegan protein",
+    userId: 2,
+    startDate: new Date(),
+    endDate: new Date(),
+    category: "Health",
+    progress: "Not Started",
+    reminder: false,
+}
+)
+
+db.createCollection('users')
+usersCollection = db.getCollection("users")
+usersCollection.remove({})
+usersCollection.insert({
+    userId: 1,
     name: "Preedhi",
     email: "preedhigarg@gmail.com",
     goalList : [
@@ -47,12 +75,12 @@ studentsCollection.insert({
             goalId: 3
         }
        ],
-    favoriteView: "Categories"
+    favoriteView: "Category"
 }
 )
 
-studentsCollection.insert({
-    studentId: 2,
+usersCollection.insert({
+    userId: 2,
     name: "Zi",
     email: "zi@gmail.com",
     goalList : [
@@ -66,5 +94,5 @@ studentsCollection.insert({
             goalId: 6
         }
        ],
-    favoriteView: "Categories"
+    favoriteView: "Category"
 })
