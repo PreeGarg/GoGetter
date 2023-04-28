@@ -53,27 +53,72 @@ class App {
 
     let router = express.Router();
 
-    // Create one goal for one user - TODO
+    // Create a goal
+    http://localhost:8080/app/goal
+     router.post('/app/goal', async (req: any, res: any) => {
+      console.log('Create one goal');
+      const newGoalInfo = req.body;
+      
+      try {
+        const newGoal = new this.Goals.model({ ...newGoalInfo, goalId: this.generateUUIDNumber() });
+        await newGoal.save();
+        return res.status(201).send('New goal created');
+      } 
+      catch (err) {
+        console.error(err);
+        return res.status(500).send('Server error');
+      }
+    });
 
-    // Retrieve one goal for one user - TODO
-
-    // Retrieve all goals for one user - TODO
-
-
-    // Retrieve all goals for all users - NOT VALID METHOD, TO REMOVE
-    // http://localhost:8080/app/all-goals (Postman Test URL)
-    router.get('/app/all-goals/', (req, res) => {
+    // Retrieve all goals
+    // http://localhost:8080/app/goals (Postman Test URL)
+    router.get('/app/goals/', (req, res) => {
       console.log('Query all goals');
       this.Goals.retrieveAllGoals(res);
     });
 
+    //Retrieve all goals by category
+    router.get('/app/goals/category/:category', (req, res) => {
+      var _category = req.params.category;
+      console.log('Category: ' + _category);
+      this.Goals.retrieveGoalsbyProperties(res, {category: _category});
+  });
 
-    // Update one goal for one user - TODO
+  //Retrieve all goals by progress
+  router.get('/app/goals/progress/:progress', (req, res) => {
+    var _progress = req.params.progress;
+    console.log('Category: ' + _progress);
+    this.Goals.retrieveGoalsbyProperties(res, {progress: _progress});
+});
 
-    // Delete one goal for one user - TODO
 
+    // Retrieve one goal by goalId
+   // http://localhost:8080/app/goals/1
+    router.get('/app/goals/:goalId', (req, res) => {
+      var id = req.params.goalId;
+      console.log('GoalId: ' + id);
+      this.Goals.retrieveGoalsDetails(res, {goalId: id});
+  });
 
-  
+    // Update one goal for one user
+    router.put('/app/goals/:goalId', (req, res) => {
+      const id = req.params.goalId;
+      const goalUpdate = req.body;
+      const filter = {goalId: id };
+    
+      // Call the createOrUpdateGoal() method from your Mongoose class to update or create the goal
+      this.Goals.createOrUpdateGoal(res, filter, goalUpdate);
+    });
+
+    // Delete one goal for one user
+    router.delete('/app/goals/:goalId', (req, res) => {
+      var id = req.params.goalId;
+      console.log('GoalId to be deleted: ' + id);
+      this.Goals.deleteGoal(res, {goalId: id})
+    });
+
+    //--------------------------------------------USER CRUD--------------------------------------
+
     // Create one user
     // http://localhost:8080/app/user with user info written as JSON in input payload
     router.post('/app/user', async (req: any, res: any) => {

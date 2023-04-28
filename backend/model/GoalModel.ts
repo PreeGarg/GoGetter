@@ -48,7 +48,14 @@ class GoalModel {
     
     public retrieveGoalsDetails(response:any, filter:Object) {
         var query = this.model.findOne(filter);
-        query.exec((itemArray: any) => {
+        query.exec((err, itemArray: any) => {
+            response.json(itemArray);
+        });
+    }
+
+    public retrieveGoalsbyProperties(response:any, filter:Object) {
+        var query = this.model.find(filter);
+        query.exec((err, itemArray: any) => {
             response.json(itemArray);
         });
     }
@@ -59,6 +66,28 @@ class GoalModel {
             response.json(itemArray) ;
         });
     }
+
+    public createOrUpdateGoal(response: any, filter: Object, update: Object) {
+        this.model.findOneAndUpdate(filter, update, { upsert: true, new: true }, (err: any, result: any) => {
+          if (err) {
+            response.status(500).json({ error: err.message });
+          } else {
+            response.json(result);
+          }
+        });
+      }
+      
+
+    public deleteGoal(response: any, filter: Object) {
+        this.model.deleteOne(filter, (err: any, result: any) => {
+          if (err) {
+            response.status(500).json({ error: err.message });
+          } else {
+            response.json({ message: `${result.deletedCount} goal(s) deleted` });
+          }
+        });
+      }
+      
 
 }
 export {GoalModel};

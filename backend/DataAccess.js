@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DataAccess = void 0;
 const Mongoose = require("mongoose");
 class DataAccess {
+    //static DB_CONNECTION_STRING:string = 'mongodb+srv://Cluster96542:W15dQ3hlY1N2@cluster96542.kaymygv.mongodb.net/gogetter';
     constructor() {
         DataAccess.connect();
     }
@@ -18,6 +19,8 @@ class DataAccess {
     }
 }
 exports.DataAccess = DataAccess;
-DataAccess.DB_CONNECTION_STRING = 'mongodb+srv://Cluster96542:W15dQ3hlY1N2@cluster96542.kaymygv.mongodb.net/gogetter';
+//'mongodb://dbAdmin:test@localhost:3000/toDoSample?authSource=admin'
+//'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.1'
+DataAccess.DB_CONNECTION_STRING = 'mongodb://dbAdmin:test@localhost:27017/gogetter?authSource=admin';
 DataAccess.connect();
 console.log(DataAccess.mongooseConnection.readyState);
