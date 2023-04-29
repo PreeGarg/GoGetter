@@ -53,17 +53,19 @@ class App {
 
     let router = express.Router();
 
+    //--------------------------------------------GOAL CRUD--------------------------------------
+
     // Create a goal
-    http://localhost:8080/app/goal
-     router.post('/app/goal', async (req: any, res: any) => {
+    // http://localhost:8080/app/goal
+    router.post('/app/goal', async (req: any, res: any) => {
       console.log('Create one goal');
       const newGoalInfo = req.body;
-      
+
       try {
         const newGoal = new this.Goals.model({ ...newGoalInfo, goalId: this.generateUUIDNumber() });
         await newGoal.save();
         return res.status(201).send('New goal created');
-      } 
+      }
       catch (err) {
         console.error(err);
         return res.status(500).send('Server error');
@@ -81,31 +83,31 @@ class App {
     router.get('/app/goals/category/:category', (req, res) => {
       var _category = req.params.category;
       console.log('Category: ' + _category);
-      this.Goals.retrieveGoalsbyProperties(res, {category: _category});
-  });
+      this.Goals.retrieveGoalsbyProperties(res, { category: _category });
+    });
 
-  //Retrieve all goals by progress
-  router.get('/app/goals/progress/:progress', (req, res) => {
-    var _progress = req.params.progress;
-    console.log('Category: ' + _progress);
-    this.Goals.retrieveGoalsbyProperties(res, {progress: _progress});
-});
+    //Retrieve all goals by progress
+    router.get('/app/goals/progress/:progress', (req, res) => {
+      var _progress = req.params.progress;
+      console.log('Category: ' + _progress);
+      this.Goals.retrieveGoalsbyProperties(res, { progress: _progress });
+    });
 
 
     // Retrieve one goal by goalId
-   // http://localhost:8080/app/goals/1
+    // http://localhost:8080/app/goals/1
     router.get('/app/goals/:goalId', (req, res) => {
       var id = req.params.goalId;
       console.log('GoalId: ' + id);
-      this.Goals.retrieveGoalsDetails(res, {goalId: id});
-  });
+      this.Goals.retrieveGoalsDetails(res, { goalId: id });
+    });
 
     // Update one goal for one user
     router.put('/app/goals/:goalId', (req, res) => {
       const id = req.params.goalId;
       const goalUpdate = req.body;
-      const filter = {goalId: id };
-    
+      const filter = { goalId: id };
+
       // Call the createOrUpdateGoal() method from your Mongoose class to update or create the goal
       this.Goals.createOrUpdateGoal(res, filter, goalUpdate);
     });
@@ -114,71 +116,52 @@ class App {
     router.delete('/app/goals/:goalId', (req, res) => {
       var id = req.params.goalId;
       console.log('GoalId to be deleted: ' + id);
-      this.Goals.deleteGoal(res, {goalId: id})
+      this.Goals.deleteGoal(res, { goalId: id })
     });
 
     //--------------------------------------------USER CRUD--------------------------------------
 
-    // Create one user
-    // http://localhost:8080/app/user with user info written as JSON in input payload
-    router.post('/app/user', async (req: any, res: any) => {
-      console.log('Create one user');
-      const newUserInfo = req.body;
-      
-      try {
-        // Check if the user email already exists in the database -- TO CONFIRM IF IT'S OKAY TO USE EMAIL TO CHECK
-        const existingEmail = await this.Users.checkUserExists({email: newUserInfo.email})
-
-        if (existingEmail) {
-          return res.status(409).send('User email already exists');
-        }
-
-        // If the user email does not exist, create a new user
-        const newUser = new this.Users.model({ ...newUserInfo, userId: this.generateUUIDNumber() });
-        await newUser.save();
-
-        return res.status(201).send('New user account created');
-      } catch (err) {
-        console.error(err);
-        return res.status(500).send('Server error');
-      }
+    // Create a user
+    // http://localhost:8080/app/user (user info as JSON in input payload)
+    router.post('/app/user/', (req, res) => {
+      var newUserInfo = req.body;
+      var newUserEmail = newUserInfo.email   // email will be used to check for existing user
+      newUserInfo.userId = crypto.randomBytes(16).toString("hex");  // generate random ID to assign to new user 
+      console.log('Add new user to database');
+      this.Users.createNewUser(res, newUserInfo, {email: newUserEmail});
     });
 
-
-    // Retrieve information about one user  -- THIS IS BASED ON THE ASSUMPTION THAT ID IS IN THE PAYLOAD
-    // http://localhost:8080/app/user
-    router.get('/app/user', async (req: any, res: any) => {
-      console.log('Query one user');
-      const newUserInfo = req.body;
-      const userIdObj = {userId: newUserInfo.userId}
-
-      try {
-        // Check if the userId exists 
-        const idExists = await this.Users.checkUserExists(userIdObj)
-        if (!idExists) {
-          return res.status(404).send('User not found');
-        }
-
-        // If user is found, return the user's details 
-        this.Users.retrieveUserDetails(res, userIdObj);
-      } catch (err) {
-        console.error(err);
-        return res.status(500).send('Server error');
-      }
-    });
-    
-
-    // Retrieve information about all users -  ADMINISTRATOR USE THIS FUNCTION? DO WE WANT ADMINISTRATOR ROLE? 
-    // http://localhost:8080/app/all-users
-    router.get('/app/all-users/', (req: any, res: any) => {
+    // Retrieve all users
+    // http://localhost:8080/app/users
+    router.get('/app/users/', (req: any, res: any) => {
       console.log('Query all users');
       this.Users.retrieveAllUsers(res);
     });
 
-    // Update information about one user - TODO
+    // Retrieve one user by userId
+    // http://localhost:8080/app/users/1
+    router.get('/app/users/:userId', (req: any, res: any) => {
+      var id = req.params.userId;
+      console.log('Query user with ID ' + id);
+      this.Users.retrieveUserDetails(res, { userId: id });
+    });
 
-    // Delete all information from one user - TODO
+    // Update one user by userId
+    // http://localhost:8000/app/users/2 (user info in JSON in input payload)
+    router.put('/app/users/:userId', (req, res) => {
+      const id = req.params.userId;
+      const userUpdate = req.body;
+      console.log('Update info for user with ID ' + id);
+      this.Users.updateUserDetails(res, userUpdate, {userId: id})
+    });
 
+    // Delete one user
+    // http://localhost:8000/app/users/2
+    router.delete('/app/users/:userId', (req, res) => {
+      var id = req.params.userId;
+      console.log('Delete user with ID ' + id);
+      this.Users.deleteUser(res, { userId: id })
+    });
 
 
     this.expressApp.use('/', router);

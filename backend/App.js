@@ -51,9 +51,10 @@ class App {
     // Configure API endpoints.
     routes() {
         let router = express.Router();
+        //--------------------------------------------GOAL CRUD--------------------------------------
         // Create a goal
-        http: //localhost:8080/app/goal
-         router.post('/app/goal', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        // http://localhost:8080/app/goal
+        router.post('/app/goal', (req, res) => __awaiter(this, void 0, void 0, function* () {
             console.log('Create one goal');
             const newGoalInfo = req.body;
             try {
@@ -106,55 +107,43 @@ class App {
             this.Goals.deleteGoal(res, { goalId: id });
         });
         //--------------------------------------------USER CRUD--------------------------------------
-        // Create one user
-        // http://localhost:8080/app/user with user info written as JSON in input payload
-        router.post('/app/user', (req, res) => __awaiter(this, void 0, void 0, function* () {
-            console.log('Create one user');
-            const newUserInfo = req.body;
-            try {
-                // Check if the user email already exists in the database -- TO CONFIRM IF IT'S OKAY TO USE EMAIL TO CHECK
-                const existingEmail = yield this.Users.checkUserExists({ email: newUserInfo.email });
-                if (existingEmail) {
-                    return res.status(409).send('User email already exists');
-                }
-                // If the user email does not exist, create a new user
-                const newUser = new this.Users.model(Object.assign(Object.assign({}, newUserInfo), { userId: this.generateUUIDNumber() }));
-                yield newUser.save();
-                return res.status(201).send('New user account created');
-            }
-            catch (err) {
-                console.error(err);
-                return res.status(500).send('Server error');
-            }
-        }));
-        // Retrieve information about one user  -- THIS IS BASED ON THE ASSUMPTION THAT ID IS IN THE PAYLOAD
-        // http://localhost:8080/app/user
-        router.get('/app/user', (req, res) => __awaiter(this, void 0, void 0, function* () {
-            console.log('Query one user');
-            const newUserInfo = req.body;
-            const userIdObj = { userId: newUserInfo.userId };
-            try {
-                // Check if the userId exists 
-                const idExists = yield this.Users.checkUserExists(userIdObj);
-                if (!idExists) {
-                    return res.status(404).send('User not found');
-                }
-                // If user is found, return the user's details 
-                this.Users.retrieveUserDetails(res, userIdObj);
-            }
-            catch (err) {
-                console.error(err);
-                return res.status(500).send('Server error');
-            }
-        }));
-        // Retrieve information about all users -  ADMINISTRATOR USE THIS FUNCTION? DO WE WANT ADMINISTRATOR ROLE? 
-        // http://localhost:8080/app/all-users
-        router.get('/app/all-users/', (req, res) => {
+        // Create a user
+        // http://localhost:8080/app/user (user info as JSON in input payload)
+        router.post('/app/user/', (req, res) => {
+            var newUserInfo = req.body;
+            var newUserEmail = newUserInfo.email; // email will be used to check for existing user
+            newUserInfo.userId = crypto.randomBytes(16).toString("hex"); // generate random ID to assign to new user 
+            console.log('Add new user to database');
+            this.Users.createNewUser(res, newUserInfo, { email: newUserEmail });
+        });
+        // Retrieve all users
+        // http://localhost:8080/app/users
+        router.get('/app/users/', (req, res) => {
             console.log('Query all users');
             this.Users.retrieveAllUsers(res);
         });
-        // Update information about one user - TODO
-        // Delete all information from one user - TODO
+        // Retrieve one user by userId
+        // http://localhost:8080/app/users/1
+        router.get('/app/users/:userId', (req, res) => {
+            var id = req.params.userId;
+            console.log('Query user with ID ' + id);
+            this.Users.retrieveUserDetails(res, { userId: id });
+        });
+        // Update one user by userId
+        // http://localhost:8000/app/users/2 (user info in JSON in input payload)
+        router.put('/app/users/:userId', (req, res) => {
+            const id = req.params.userId;
+            const userUpdate = req.body;
+            console.log('Update info for user with ID ' + id);
+            this.Users.updateUserDetails(res, userUpdate, { userId: id });
+        });
+        // Delete one user
+        // http://localhost:8000/app/users/2
+        router.delete('/app/users/:userId', (req, res) => {
+            var id = req.params.userId;
+            console.log('Delete user with ID ' + id);
+            this.Users.deleteUser(res, { userId: id });
+        });
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
         this.expressApp.use('/images', express.static(__dirname + '/img'));

@@ -1,5 +1,5 @@
-import {DataAccess} from '../DataAccess';
-import {IUserModel} from '../interfaces/IUserModel';
+import { DataAccess } from '../DataAccess';
+import { IUserModel } from '../interfaces/IUserModel';
 import { FavoriteEnum } from '../enum/FavoriteEnum';
 import { STATUS_CODES } from "http";
 import Mongoose = require("mongoose");
@@ -8,9 +8,9 @@ let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
 
 class UserModel {
-    public schema:any;
-    public innerSchema:any;
-    public model:any;
+    public schema: any;
+    public innerSchema: any;
+    public model: any;
 
     public constructor() {
         this.createSchema();
@@ -20,10 +20,10 @@ class UserModel {
     public createSchema(): void {
         this.schema = new Mongoose.Schema(
             {
-                userId: {type: String, required: true},
-                name: {type: String, required: true},
-                email: {type: String, required: true},
-                goalList:[
+                userId: { type: String, required: true },
+                name: { type: String, required: true },
+                email: { type: String, required: true },
+                goalList: [
                     {
                         goalId: String  // TODO: is it better to change this to {type:[GoalModel.schema] ?? }
                     }
@@ -33,32 +33,98 @@ class UserModel {
                     enum: [FavoriteEnum.Category, FavoriteEnum.Timeline],
                     default: FavoriteEnum.Category
                 },
-            }, {collection: 'users'}
+            }, { collection: 'users' }
         );
     }
 
     public createModel(): void {
         this.model = mongooseConnection.model<IUserModel>("User", this.schema);
     }
-    
-    public retrieveUserDetails(response:any, filter:Object) {
+
+    //--------------------------------------------USER CRUD METHODS--------------------------------------
+
+    public createNewUser(response: any, newUserInfo: Object, emailFilter: Object): void {
+        this.checkUserExists(emailFilter, (exists) => {
+            if (exists) {
+                let err = 'Error: email exists already';
+                console.log(err);
+                response.status(409).json({ error: err });
+            } else {
+                this.model.create([newUserInfo], (err: any) => {
+                    if (err) {
+                        console.log(err);
+                        response.status(500).json({ error: err.message });
+                    }
+                    else {
+                        console.log('New user added successfully')
+                        response.send('New user added successfully');
+                    }
+                });
+            }
+        });
+    }
+
+    public checkUserExists(filter: Object, callback: (exists: boolean) => void): void {
         var query = this.model.findOne(filter);
-        query.exec((err, itemArray: any) => {
-            response.json(itemArray);
+        query.exec((err: any, itemArray: any) => {
+            if (err) {
+                console.log('Error:', err);
+            }
+            else {
+                callback(itemArray !== null);
+            }
         });
     }
 
-    public retrieveAllUsers(response:any): any {
+    public retrieveAllUsers(response: any): any {
         var query = this.model.find({});
-        query.exec( (err, itemArray: any) => {
-            response.json(itemArray) ;
+        query.exec((err: any, itemArray: any) => {
+            if (err) {
+                console.log('Error:', err);
+                response.status(500).json({ error: err.message });
+            } else {
+                console.log('Retrieved all users successfully')
+                response.json(itemArray);
+            }
         });
     }
 
-    public async checkUserExists(filter: Object): Promise<boolean> {
-        const userFound = await this.model.findOne(filter);
-        return userFound !== null;
+    public retrieveUserDetails(response: any, filter: Object) {
+        var query = this.model.findOne(filter);
+        query.exec((err: any, itemArray: any) => {
+            if (err) {
+                console.log('Error:', err);
+                response.status(500).json({ error: err.message });
+            } else {
+                console.log('Retrieved user info successfully');
+                response.json(itemArray);
+            }
+        });
     }
 
+    public updateUserDetails(response: any, userUpdate: Object, filter: Object) {
+        this.model.findOneAndUpdate(filter, userUpdate, { upsert: true, new: true }, (err: any, result: any) => {
+            if (err) {
+                console.log('Error:', err);
+                response.status(500).json({ error: err.message });
+            } else {
+                console.log('Updated user info successfully')
+                response.json(result);
+            }
+        });
+    }
+
+    public deleteUser(response: any, filter: Object) {
+        this.model.deleteOne(filter, (err: any, result: any) => {
+            if (err) {
+                console.log('Error:', err);
+                response.status(500).json({ error: err.message });
+            } else {
+                console.log('User deleted successfully');
+                response.json({ message: `${result.deletedCount} user(s) deleted` });
+            }
+        });
+    }
 }
-export {UserModel};
+
+export { UserModel };
