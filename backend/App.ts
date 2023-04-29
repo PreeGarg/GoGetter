@@ -56,63 +56,55 @@ class App {
     //--------------------------------------------GOAL CRUD--------------------------------------
 
     // Create a goal
-    // http://localhost:8080/app/goal
+    // POST: http://localhost:8080/app/goal
     router.post('/app/goal', async (req: any, res: any) => {
-      console.log('Create one goal');
-      const newGoalInfo = req.body;
-
-      try {
-        const newGoal = new this.Goals.model({ ...newGoalInfo, goalId: this.generateUUIDNumber() });
-        await newGoal.save();
-        return res.status(201).send('New goal created');
-      }
-      catch (err) {
-        console.error(err);
-        return res.status(500).send('Server error');
-      }
+      var newGoalInfo = req.body;
+      newGoalInfo.goalId = crypto.randomBytes(16).toString("hex");  // generate random ID to assign to new user 
+      console.log('Create new goal with goalId:' + newGoalInfo.goalId);
+      this.Goals.createNewGoal(res, newGoalInfo);
     });
 
     // Retrieve all goals
-    // http://localhost:8080/app/goals (Postman Test URL)
-    router.get('/app/goals/', (req, res) => {
-      console.log('Query all goals');
-      this.Goals.retrieveAllGoals(res);
+    // GET: http://localhost:8080/app/goals
+    // GET: http://localhost:8080/app/goals?category=Health
+    // GET: http://localhost:8080/app/goals?progress=In Progress
+    router.get('/app/goals', (req, res) => {
+      if (req.query.hasOwnProperty('category')) {
+        const _category = req.query.category;
+        console.log('Category: ' + _category);
+        this.Goals.retrieveGoalsbyProperties(res, { category: _category});
+      } 
+      else if (req.query.hasOwnProperty('progress')){
+        const _progress = req.query.progress;
+        console.log('Progress: ' + _progress);
+        this.Goals.retrieveGoalsbyProperties(res, { progress: _progress});
+      } 
+      else {
+        console.log('Query all goals');
+        this.Goals.retrieveAllGoals(res);
+      }
+     
     });
-
-    //Retrieve all goals by category
-    router.get('/app/goals/category/:category', (req, res) => {
-      var _category = req.params.category;
-      console.log('Category: ' + _category);
-      this.Goals.retrieveGoalsbyProperties(res, { category: _category });
-    });
-
-    //Retrieve all goals by progress
-    router.get('/app/goals/progress/:progress', (req, res) => {
-      var _progress = req.params.progress;
-      console.log('Category: ' + _progress);
-      this.Goals.retrieveGoalsbyProperties(res, { progress: _progress });
-    });
-
 
     // Retrieve one goal by goalId
-    // http://localhost:8080/app/goals/1
+    // GET: http://localhost:8080/app/goals/1
     router.get('/app/goals/:goalId', (req, res) => {
       var id = req.params.goalId;
       console.log('GoalId: ' + id);
-      this.Goals.retrieveGoalsDetails(res, { goalId: id });
+      this.Goals.retrieveGoalDetails(res, { goalId: id });
     });
 
     // Update one goal for one user
+    // PUT: http://localhost:8080/app/goals/1
     router.put('/app/goals/:goalId', (req, res) => {
       const id = req.params.goalId;
       const goalUpdate = req.body;
       const filter = { goalId: id };
-
-      // Call the createOrUpdateGoal() method from your Mongoose class to update or create the goal
       this.Goals.createOrUpdateGoal(res, filter, goalUpdate);
     });
 
     // Delete one goal for one user
+    // DELETE: http://localhost:8080/app/goals/1
     router.delete('/app/goals/:goalId', (req, res) => {
       var id = req.params.goalId;
       console.log('GoalId to be deleted: ' + id);
@@ -165,11 +157,6 @@ class App {
 
 
     this.expressApp.use('/', router);
-
-    this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
-    this.expressApp.use('/images', express.static(__dirname + '/img'));
-    this.expressApp.use('/', express.static(__dirname + '/pages'));
-
   }
 }
 

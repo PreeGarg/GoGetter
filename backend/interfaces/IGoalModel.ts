@@ -7,7 +7,7 @@ interface IGoalModel extends Mongoose.Document {
     goalId: string;
     title: string;
     description: string;
-    userId: string;  // TODO: consider changing data type to Mongoose.Types.ObjectId as foreign key
+    userId: string;  
     startDate: Date;
     endDate: Date;
     category: CategoryEnum;

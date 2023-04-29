@@ -19,8 +19,6 @@ class DataAccess {
     }
 }
 exports.DataAccess = DataAccess;
-//'mongodb://dbAdmin:test@localhost:3000/toDoSample?authSource=admin'
-//'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.1'
 DataAccess.DB_CONNECTION_STRING = 'mongodb://dbAdmin:test@localhost:27017/gogetter?authSource=admin';
 DataAccess.connect();
 console.log(DataAccess.mongooseConnection.readyState);

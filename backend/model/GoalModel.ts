@@ -38,15 +38,28 @@ class GoalModel {
                     default: ProgressEnum.NotStarted
                 },
                 reminder: Boolean,
-            }, {collection: 'goals'}
+            },  {collection: 'goals', versionKey: false}, 
         );
     }
 
     public createModel(): void {
         this.model = mongooseConnection.model<IGoalModel>("Goal", this.schema);
     }
+
+    public createNewGoal(response: any, newGoalInfo: Object): void {
+      this.model.create([newGoalInfo], (err: any) => {
+                  if (err) {
+                      console.log(err);
+                      response.status(500).json({ error: err.message });
+                  }
+                  else {
+                      console.log('New goal added successfully')
+                      response.send('New goal added successfully');
+                  }
+              });
+  }
     
-    public retrieveGoalsDetails(response:any, filter:Object) {
+    public retrieveGoalDetails(response:any, filter:Object) {
         var query = this.model.findOne(filter);
         query.exec((err, itemArray: any) => {
             response.json(itemArray);

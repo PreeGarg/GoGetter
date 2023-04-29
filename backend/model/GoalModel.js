@@ -31,10 +31,22 @@ class GoalModel {
                 default: ProgressEnum_1.ProgressEnum.NotStarted
             },
             reminder: Boolean,
-        }, { collection: 'goals' });
+        }, { collection: 'goals', versionKey: false });
     }
     createModel() {
         this.model = mongooseConnection.model("Goal", this.schema);
+    }
+    createNewGoal(response, newGoalInfo) {
+        this.model.create([newGoalInfo], (err) => {
+            if (err) {
+                console.log(err);
+                response.status(500).json({ error: err.message });
+            }
+            else {
+                console.log('New goal added successfully');
+                response.send('New goal added successfully');
+            }
+        });
     }
     retrieveGoalsDetails(response, filter) {
         var query = this.model.findOne(filter);
