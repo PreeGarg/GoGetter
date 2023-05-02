@@ -62,21 +62,39 @@ class GoalModel {
     public retrieveGoalDetails(response:any, filter:Object) {
         var query = this.model.findOne(filter);
         query.exec((err, itemArray: any) => {
+          if (err){
+            console.log(err);
+            response.status(500).json({ error: err.message });
+          }
+          else {
             response.json(itemArray);
+          } 
         });
     }
 
     public retrieveGoalsbyProperties(response:any, filter:Object) {
         var query = this.model.find(filter);
         query.exec((err, itemArray: any) => {
+          if (err){
+            console.log(err);
+            response.status(500).json({ error: err.message });
+          }
+          else {
             response.json(itemArray);
+          } 
         });
     }
 
     public retrieveAllGoals(response:any): any {
         var query = this.model.find({});
-        query.exec( (err, itemArray) => {
-            response.json(itemArray) ;
+        query.exec((err, itemArray: any) => {
+          if (err){
+            console.log(err);
+            response.status(500).json({ error: err.message });
+          }
+          else {
+            response.json(itemArray);
+          } 
         });
     }
 

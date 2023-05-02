@@ -56,7 +56,6 @@ goalsCollection.insert(
     reminder: false,
 }
 )
-
 db.createCollection('users')
 usersCollection = db.getCollection("users")
 usersCollection.remove({})
@@ -95,4 +94,15 @@ usersCollection.insert({
         }
        ],
     favoriteView: "Category"
+})
+
+db.createCollection('reminders')
+reminderCollection = db.getCollection("reminders")
+reminderCollection.remove({})
+reminderCollection.insert({
+    reminderId:"1",
+    goalId: "1",
+    userId: "1",
+    message: "Do not forget to fast" ,
+    reminderDate: new Date()
 })
