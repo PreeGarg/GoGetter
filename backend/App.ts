@@ -100,7 +100,7 @@ class App {
       const id = req.params.goalId;
       const goalUpdate = req.body;
       const filter = { goalId: id };
-      this.Goals.createOrUpdateGoal(res, filter, goalUpdate);
+      this.Goals.UpdateGoal(res, filter, goalUpdate);
     });
 
     // Delete one goal for one user

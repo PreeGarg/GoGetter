@@ -85,7 +85,7 @@ class App {
         router.get('/app/goals/:goalId', (req, res) => {
             var id = req.params.goalId;
             console.log('GoalId: ' + id);
-            this.Goals.retrieveGoalsDetails(res, { goalId: id });
+            this.Goals.retrieveGoalDetails(res, { goalId: id });
         });
         // Update one goal for one user
         // PUT: http://localhost:8080/app/goals/1
@@ -93,7 +93,7 @@ class App {
             const id = req.params.goalId;
             const goalUpdate = req.body;
             const filter = { goalId: id };
-            this.Goals.createOrUpdateGoal(res, filter, goalUpdate);
+            this.Goals.UpdateGoal(res, filter, goalUpdate);
         });
         // Delete one goal for one user
         // DELETE: http://localhost:8080/app/goals/1

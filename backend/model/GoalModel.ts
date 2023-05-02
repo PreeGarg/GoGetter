@@ -98,7 +98,7 @@ class GoalModel {
         });
     }
 
-    public createOrUpdateGoal(response: any, filter: Object, update: Object) {
+    public UpdateGoal(response: any, filter: Object, update: Object) {
         this.model.findOneAndUpdate(filter, update, { upsert: true, new: true }, (err: any, result: any) => {
           if (err) {
             response.status(500).json({ error: err.message });

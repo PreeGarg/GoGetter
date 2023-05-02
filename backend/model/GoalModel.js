@@ -48,25 +48,43 @@ class GoalModel {
             }
         });
     }
-    retrieveGoalsDetails(response, filter) {
+    retrieveGoalDetails(response, filter) {
         var query = this.model.findOne(filter);
         query.exec((err, itemArray) => {
-            response.json(itemArray);
+            if (err) {
+                console.log(err);
+                response.status(500).json({ error: err.message });
+            }
+            else {
+                response.json(itemArray);
+            }
         });
     }
     retrieveGoalsbyProperties(response, filter) {
         var query = this.model.find(filter);
         query.exec((err, itemArray) => {
-            response.json(itemArray);
+            if (err) {
+                console.log(err);
+                response.status(500).json({ error: err.message });
+            }
+            else {
+                response.json(itemArray);
+            }
         });
     }
     retrieveAllGoals(response) {
         var query = this.model.find({});
         query.exec((err, itemArray) => {
-            response.json(itemArray);
+            if (err) {
+                console.log(err);
+                response.status(500).json({ error: err.message });
+            }
+            else {
+                response.json(itemArray);
+            }
         });
     }
-    createOrUpdateGoal(response, filter, update) {
+    UpdateGoal(response, filter, update) {
         this.model.findOneAndUpdate(filter, update, { upsert: true, new: true }, (err, result) => {
             if (err) {
                 response.status(500).json({ error: err.message });
