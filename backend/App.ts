@@ -23,25 +23,6 @@ class App {
     this.Users = new UserModel();
   }
 
-  generateUUIDNumber(): String {
-    let uuid = '';
-    const uuidChars = '0123456789abcdef';
-
-    // Generate a random UUID string
-    for (let i = 0; i < 32; i++) {
-      const randomChar = Math.floor(Math.random() * 16);
-      const char = uuidChars[randomChar];
-      if (i === 8 || i === 12 || i === 16 || i === 20) {
-        uuid += '-';
-      }
-      uuid += char;
-    }
-    // Use SHA256 to hash UUID to provide stronger security 
-    const hash = crypto.createHash('sha256');
-    hash.update(uuid);
-    return hash.digest('hex');
-  }
-
   // Configure Express middleware.
   private middleware(): void {
     this.expressApp.use(bodyParser.json());

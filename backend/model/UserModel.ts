@@ -33,7 +33,7 @@ class UserModel {
                     enum: [FavoriteEnum.Category, FavoriteEnum.Timeline],
                     default: FavoriteEnum.Category
                 },
-            }, { collection: 'users' }
+            }, { collection: 'users', versionKey: false }
         );
     }
 

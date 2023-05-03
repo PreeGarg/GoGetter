@@ -26,7 +26,7 @@ class UserModel {
                 enum: [FavoriteEnum_1.FavoriteEnum.Category, FavoriteEnum_1.FavoriteEnum.Timeline],
                 default: FavoriteEnum_1.FavoriteEnum.Category
             },
-        }, { collection: 'users' });
+        }, { collection: 'users', versionKey: false });
     }
     createModel() {
         this.model = mongooseConnection.model("User", this.schema);
