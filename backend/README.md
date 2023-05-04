@@ -62,10 +62,10 @@ To test, open postman and copy below URLS
 * POST: http://localhost:8080/app/user (user info in JSON in input payload)
 * GET: http://localhost:8080/app/user
 * GET: http://localhost:8080/app/user/1
-* PUT: http://localhost:8000/app/user/2 (user info in JSON in input payload)
-* DELETE: http://localhost:8000/app/user/2
+* PUT: http://localhost:8080/app/user/2 (user info in JSON in input payload)
+* DELETE: http://localhost:8080/app/user/2
 
 * POST: http://localhost:8080/app/reminder (reminder info in JSON in input payload)
 * GET: http://localhost:8080/app/reminder
 * GET: http://localhost:8080/app/reminder/1
-* DELETE: http://localhost:8000/app/reminder/2
+* DELETE: http://localhost:8080/app/reminder/2
