@@ -52,15 +52,20 @@ To run:
 
 To test, open postman and copy below URLS
 * POST: http://localhost:8080/app/goal (goal info in JSON in input payload)
-* GET: http://localhost:8080/app/goals
-* GET: http://localhost:8080/app/goals/1
-* GET: http://localhost:8080/app/goals?category=Health
-* GET: http://localhost:8080/app/goals?progress=In Progress
-* PUT: http://localhost:8080/app/goals/1  (goal info in JSON in input payload)
-* DELETE: http://localhost:8080/app/goals/1
+* GET: http://localhost:8080/app/goal
+* GET: http://localhost:8080/app/goal/1
+* GET: http://localhost:8080/app/goal?category=Health
+* GET: http://localhost:8080/app/goal?progress=In Progress
+* PUT: http://localhost:8080/app/goal/1  (goal info in JSON in input payload)
+* DELETE: http://localhost:8080/app/goal/1
 
 * POST: http://localhost:8080/app/user (user info in JSON in input payload)
-* GET: http://localhost:8080/app/users
-* GET: http://localhost:8080/app/users/1
-* PUT: http://localhost:8000/app/users/2 (user info in JSON in input payload)
-* DELETE: http://localhost:8000/app/users/2
+* GET: http://localhost:8080/app/user
+* GET: http://localhost:8080/app/user/1
+* PUT: http://localhost:8000/app/user/2 (user info in JSON in input payload)
+* DELETE: http://localhost:8000/app/user/2
+
+* POST: http://localhost:8080/app/reminder (reminder info in JSON in input payload)
+* GET: http://localhost:8080/app/reminder
+* GET: http://localhost:8080/app/reminder/1
+* DELETE: http://localhost:8000/app/reminder/2

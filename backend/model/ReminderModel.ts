@@ -47,7 +47,27 @@ class ReminderModel {
     public retrieveReminderDetails(response:any, filter:Object) {
         var query = this.model.findOne(filter);
         query.exec((err, itemArray: any) => {
+            if (err){
+                response.status(500).json({ error: err.message });
+            }
+            else
+            {
+                response.json(itemArray);
+            }
+            
+        });
+    }
+
+    public retrieveAllReminder(response:any): any {
+        var query = this.model.find({});
+        query.exec((err, itemArray: any) => {
+          if (err){
+            console.log(err);
+            response.status(500).json({ error: err.message });
+          }
+          else {
             response.json(itemArray);
+          } 
         });
     }
 

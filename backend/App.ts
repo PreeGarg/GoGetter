@@ -139,6 +139,39 @@ class App {
       this.Users.deleteUser(res, { userId: id })
     });
 
+    //--------------------------------------------REMINDER CRUD--------------------------------------
+
+    // Create a reminder
+    // POST: http://localhost:8080/app/reminder
+    router.post('/app/reminder', async (req: any, res: any) => {
+      var newReminderInfo = req.body;
+      newReminderInfo.reminderId = crypto.randomBytes(16).toString("hex");  // generate random ID to assign to new user 
+      console.log('Reminder created' + newReminderInfo.reminderId);
+      this.Reminders.createNewReminder(res, newReminderInfo);
+    });
+
+    // Retrieve all reminder
+    // GET: http://localhost:8080/app/reminder
+    router.get('/app/reminder', (req, res) => {
+        console.log('Query all reminder');
+        this.Reminders.retrieveAllReminder(res);
+    });
+
+    // Retrieve one reminder by reminderId
+    // GET: http://localhost:8080/app/reminderId/1
+    router.get('/app/reminder/:reminderId', (req, res) => {
+      var id = req.params.reminderId;
+      console.log('ReminderId: ' + id);
+      this.Reminders.retrieveReminderDetails(res, { reminderId: id });
+    });
+
+    // Delete one reminder
+    // DELETE: http://localhost:8080/app/reminder/1
+    router.delete('/app/reminder/:reminderId', (req, res) => {
+      var id = req.params.reminderId;
+      console.log('reminderId to be deleted: ' + id);
+      this.Reminders.deleteReminder(res, { reminderId: id })
+    });
 
     this.expressApp.use('/', router);
   }
