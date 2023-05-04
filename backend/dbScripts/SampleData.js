@@ -1,4 +1,6 @@
 db = db.getSiblingDB('gogetter')
+
+//GOALS COLLECTION
 db.createCollection('goals')
 goalsCollection = db.getCollection("goals")
 goalsCollection.remove({})
@@ -56,6 +58,8 @@ goalsCollection.insert(
     reminder: false,
 }
 )
+
+//USERS COLLECTION
 db.createCollection('users')
 usersCollection = db.getCollection("users")
 usersCollection.remove({})
@@ -96,6 +100,7 @@ usersCollection.insert({
     favoriteView: "Category"
 })
 
+//REMINDERS COLLECTION
 db.createCollection('reminders')
 reminderCollection = db.getCollection("reminders")
 reminderCollection.remove({})
@@ -104,5 +109,13 @@ reminderCollection.insert({
     goalId: "1",
     userId: "1",
     message: "Do not forget to fast" ,
+    reminderDate: new Date()
+})
+
+reminderCollection.insert({
+    reminderId:"2",
+    goalId: "2",
+    userId: "1",
+    message: "Complete your typescript lesson" ,
     reminderDate: new Date()
 })
