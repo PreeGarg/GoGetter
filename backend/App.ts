@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { GoalModel } from './model/GoalModel';
 import { UserModel } from './model/UserModel';
+import { ReminderModel } from './model/ReminderModel';
 
 // import crypto module from Node.js to create Hash
 const crypto = require('crypto');
@@ -13,6 +14,7 @@ class App {
   public expressApp: express.Application;
   public Goals: GoalModel;
   public Users: UserModel;
+  public Reminders: ReminderModel;
 
   //Run configuration methods on the Express instance.
   constructor() {
@@ -21,6 +23,7 @@ class App {
     this.routes();
     this.Goals = new GoalModel();
     this.Users = new UserModel();
+    this.Reminders = new ReminderModel();
   }
 
   // Configure Express middleware.
@@ -46,10 +49,10 @@ class App {
     });
 
     // Retrieve all goals
-    // GET: http://localhost:8080/app/goals
-    // GET: http://localhost:8080/app/goals?category=Health
-    // GET: http://localhost:8080/app/goals?progress=In Progress
-    router.get('/app/goals', (req, res) => {
+    // GET: http://localhost:8080/app/goal
+    // GET: http://localhost:8080/app/goal?category=Health
+    // GET: http://localhost:8080/app/goal?progress=In Progress
+    router.get('/app/goal', (req, res) => {
       if (req.query.hasOwnProperty('category')) {
         const _category = req.query.category;
         console.log('Category: ' + _category);
@@ -68,16 +71,16 @@ class App {
     });
 
     // Retrieve one goal by goalId
-    // GET: http://localhost:8080/app/goals/1
-    router.get('/app/goals/:goalId', (req, res) => {
+    // GET: http://localhost:8080/app/goal/1
+    router.get('/app/goal/:goalId', (req, res) => {
       var id = req.params.goalId;
       console.log('GoalId: ' + id);
       this.Goals.retrieveGoalDetails(res, { goalId: id });
     });
 
     // Update one goal for one user
-    // PUT: http://localhost:8080/app/goals/1
-    router.put('/app/goals/:goalId', (req, res) => {
+    // PUT: http://localhost:8080/app/goal/1
+    router.put('/app/goal/:goalId', (req, res) => {
       const id = req.params.goalId;
       const goalUpdate = req.body;
       const filter = { goalId: id };
@@ -85,8 +88,8 @@ class App {
     });
 
     // Delete one goal for one user
-    // DELETE: http://localhost:8080/app/goals/1
-    router.delete('/app/goals/:goalId', (req, res) => {
+    // DELETE: http://localhost:8080/app/goal/1
+    router.delete('/app/goal/:goalId', (req, res) => {
       var id = req.params.goalId;
       console.log('GoalId to be deleted: ' + id);
       this.Goals.deleteGoal(res, { goalId: id })
@@ -105,23 +108,23 @@ class App {
     });
 
     // Retrieve all users
-    // http://localhost:8080/app/users
-    router.get('/app/users/', (req: any, res: any) => {
+    // http://localhost:8080/app/user
+    router.get('/app/user/', (req: any, res: any) => {
       console.log('Query all users');
       this.Users.retrieveAllUsers(res);
     });
 
     // Retrieve one user by userId
-    // http://localhost:8080/app/users/1
-    router.get('/app/users/:userId', (req: any, res: any) => {
+    // http://localhost:8080/app/user/1
+    router.get('/app/user/:userId', (req: any, res: any) => {
       var id = req.params.userId;
       console.log('Query user with ID ' + id);
       this.Users.retrieveUserDetails(res, { userId: id });
     });
 
     // Update one user by userId
-    // http://localhost:8000/app/users/2 (user info in JSON in input payload)
-    router.put('/app/users/:userId', (req, res) => {
+    // http://localhost:8000/app/user/2 (user info in JSON in input payload)
+    router.put('/app/user/:userId', (req, res) => {
       const id = req.params.userId;
       const userUpdate = req.body;
       console.log('Update info for user with ID ' + id);
@@ -129,8 +132,8 @@ class App {
     });
 
     // Delete one user
-    // http://localhost:8000/app/users/2
-    router.delete('/app/users/:userId', (req, res) => {
+    // http://localhost:8000/app/user/2
+    router.delete('/app/user/:userId', (req, res) => {
       var id = req.params.userId;
       console.log('Delete user with ID ' + id);
       this.Users.deleteUser(res, { userId: id })
