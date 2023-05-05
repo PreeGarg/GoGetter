@@ -30,12 +30,20 @@ MONGOSH TO ACCESS MONGODB
 	6. You can now query your mongodb
 	7. Run "show dbs"
 	8. You can see our gogetter db created
+	9. Type "use gogetter" to switch to the gogetter database
+	10. Type "show collections" to show the collection within the gogetter database
+	11. To view a collection like goals and all of its content type "db.goals.find()" -> note .find() is a mongoDB function to get all of the sample data that you loaded. 
 
 CHANGES TO CODE TO ACCESS MONGODB THROUGH CODE
 
 	1. Now go to your backend code
 	2. open DataAccess.ts and replace connection string with "mongodb://dbAdmin:test@localhost:27017/gogetter?authSource=admin". 
 	3. You can now test your API from postman
+
+RUNNING THE BACKEND SERVER TO ALLOW API TESTING USING POSTMAN(do this in terminal) 
+	1. Install the typescript compiler by doing "npm install -g typescript"
+	2. Go to the backend folder and type "tsc" to compile
+	3. Type "node AppServer.js" to run the server 
 
 MONGODb ONLINE
 Download MongoDB Compass and use the following string to access database
@@ -50,7 +58,8 @@ To run:
 4. tsc (ignore any warning)
 5. Run express/node server: node AppServer.js 
 
-To test, open postman and copy below URLS
+To test, open postman and copy below URLS. Make sure you do db.goals.find() to double check your work
+for put, post, and delete
 * POST: http://localhost:8080/app/goal (goal info in JSON in input payload)
 * GET: http://localhost:8080/app/goal
 * GET: http://localhost:8080/app/goal/1
