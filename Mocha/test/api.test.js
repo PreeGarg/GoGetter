@@ -69,7 +69,6 @@ describe('Test "Get Single Goal"', function () {
 				.end(function (err, res) {
 					requestResult = res.body;
 					response = res;
-					console.log(response);
 					expect(err).to.be.null;
 					expect(res).to.have.status(200);
 					done();
