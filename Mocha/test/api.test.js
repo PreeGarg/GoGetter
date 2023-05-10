@@ -9,9 +9,8 @@ var should = chai.should();
 var http = require('http');
 chai.use(chaiHttp);
 
+//Testing API: http://localhost:8080/app/goal
 describe('Test "Get Multiple Goals"', function () {
-//	this.timeout(15000);
-
 	var requestResult;
 	var response;
 		 
@@ -59,10 +58,8 @@ describe('Test "Get Multiple Goals"', function () {
 	
 });
 
-
+//Testing API: http://localhost:8080/app/goal/1
 describe('Test "Get Single Goal"', function () {
-	//	this.timeout(15000);
-	
 		var requestResult;
 		var response;
 			 
@@ -72,6 +69,7 @@ describe('Test "Get Single Goal"', function () {
 				.end(function (err, res) {
 					requestResult = res.body;
 					response = res;
+					console.log(response);
 					expect(err).to.be.null;
 					expect(res).to.have.status(200);
 					done();
@@ -82,12 +80,26 @@ describe('Test "Get Single Goal"', function () {
 			expect(response).to.have.status(200);
 			expect(response).to.have.headers;
 		});
-		
-		it('The entry in the array has known properties', function(){
-			expect(requestResult).to.include.keys('description');
-			expect(requestResult).to.have.property('reminder');
-			expect(response.body).to.not.be.a.string;
-		});
+
+		it('should have a valid start and end date', () => {
+			const endDate = new Date(response.body.endDate);
+			const startDate = new Date(response.body.startDate);
+			expect(endDate).to.be.a('Date');
+			expect(startDate).to.be.a('Date');
+		  });
+
+		it('should have the category as Health', () => {
+			expect(response.body.category).to.equal('Health');
+		  });
+
+		it('should have the correct progress', () => {
+			const allowedValues = ['Not Started', 'In Progress', 'Completed'];
+  			expect(response.body.progress).to.be.oneOf(allowedValues);
+		  });
+
+		it('should have a boolean value for reminder', () => {
+			expect(response.body.reminder).to.be.a('boolean');
+		  });
 
 		it('The elements in the array have the expected properties', function(){
 			expect(response.body).to.have.property('title');
@@ -104,8 +116,6 @@ describe('Test "Get Single Goal"', function () {
 	});
 
 	describe('Test "Get Goals By Category"', function () {
-		//	this.timeout(15000);
-		
 			var requestResult;
 			var response;
 				 
