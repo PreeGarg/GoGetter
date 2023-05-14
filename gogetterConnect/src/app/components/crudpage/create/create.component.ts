@@ -40,6 +40,7 @@ export class CreateComponent {
       .subscribe({
         next: (response: GoalModel) => {
           console.log('HTTP response: ', response);
+          this.resetForm();
         },
         error: (error) => {
           console.error('Error adding goal:', error);
@@ -47,6 +48,20 @@ export class CreateComponent {
         },
       });
   }
+
+  resetForm() {
+    this.newGoal = {
+      title: 'Enter Title',
+      description: '',
+      category: CategoryEnum.Default,
+      userId: '',
+      goalId:'',
+      startDate:undefined,
+      endDate:undefined,
+    };
+    this.submitted = false;
+  }
+  
 
   getGoals(): void {
     console.log("get t goa")

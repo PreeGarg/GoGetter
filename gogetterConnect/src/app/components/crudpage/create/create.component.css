@@ -1,0 +1,17 @@
+div {
+  padding-right: 30px;
+  padding-left: 80px;
+}
+
+.ngb-dp-month {
+    table-layout: fixed;
+  }
+  
+  .ngb-dp-weekdays {
+    display: flex;
+  }
+  
+  .ngb-dp-week {
+    flex: 1;
+    text-align: center;
+  }

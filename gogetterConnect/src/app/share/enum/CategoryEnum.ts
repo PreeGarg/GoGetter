@@ -1,4 +1,5 @@
 enum CategoryEnum {
+    Default = "",
     School = "School",
     Health = "Health",
     Career = "Career",
