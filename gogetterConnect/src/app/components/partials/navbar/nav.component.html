@@ -1,13 +1,48 @@
-<p>nav works!</p>
-<div class="container">
-  
+<header>
+  <div class="container">
+    <!--Display the header with the logo and the summary report picture and profile-->
+    <div class="row">
+      <nav class="navbar  sticky-top flex-md-nowrap p-0  shadow navbar-light" style="background-color: #efebe2;">
+        <!--Display the logo image-->
+        <div class="container-fluid">
+          <div class="col-sm-10">
+            <img src="assets/image/logo.png" height="75px" width="200px">
+
+          </div>
+
+          <!--Display the pie chart which acts as the summary report-->
+
+          <div class="col-sm">
+            <div class="pie-chart">
+              <img src="assets/image/pie.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </div>
+          </div>
+
+          <!--TODO: Add the dropdown button to the user profile-->
+          <!-- Display the profile of the user-->
+          <div class="col-sm">
+            <div class="profile-pic">
+              <img src="assets/image/user.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+
+
+
+<!-- <div class="container">
+
     <a [routerLink]="['/create']" class="btn btn-lg btn-primary" role="button">CREATE A GOAL!!!</a>
     <p></p>
     <a [routerLink]="['/read']" class="btn btn-lg btn-primary" role="button">GET THE GOALS!!!</a>
-    <p></p>
+    <p></p> -->
 
     <!-- Static navbar -->
-    <nav class="navbar navbar-default">
+    <!-- <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
         <a class="navbar-brand" href="index.html">To Do</a>
@@ -34,8 +69,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#">Login</a></li>
         </ul>
-        </div><!--/.nav-collapse -->
-      </div><!--/.container-fluid -->
-    </nav>
-  
-  </div> <!-- /container -->
+        </div>
+      </div>
+
+  </div>  -->

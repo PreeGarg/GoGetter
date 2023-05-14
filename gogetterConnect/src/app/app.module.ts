@@ -21,11 +21,13 @@ import { MessageService } from './service/message.service';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { NavComponent } from './components/home/navbar/nav.component';
-import { SidebarComponent } from './components/home/sidebar/sidebar.component';
+import { NavComponent } from './components/partials/navbar/nav.component';
+import { SidebarComponent } from './components/partials/sidebar/sidebar.component';
 import { CreateComponent } from './components/crudpage/create/create.component';
 import { ReadComponent } from './components/crudpage/read/read.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CategoryComponent } from './components/category/category.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SidebarComponent,
     CreateComponent,
     ReadComponent,
+    CategoryComponent,
+    TimelineComponent,
   ],
   imports: [
     BrowserModule,

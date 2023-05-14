@@ -1,0 +1,36 @@
+header {
+  position: relative;
+  background: #B5A4A3;
+  padding: 0;
+  border-bottom: 1px solid #BC9476;
+}
+ul{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+}
+
+li a{
+  height: auto;
+  width: 15rem;
+  border: 4px solid whitesmoke;
+  border-radius: 0.5rem;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #535E4B;
+  background-color: #E9E6E2;
+}
+
+li a:hover{
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.25rem;
+}
