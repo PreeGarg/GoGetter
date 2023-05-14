@@ -23,6 +23,7 @@ class App {
     constructor() {
         this.expressApp = express();
         this.middleware();
+        this.addAccessControl();
         this.routes();
         this.Goals = new GoalModel_1.GoalModel();
         this.Users = new UserModel_1.UserModel();
@@ -32,6 +33,15 @@ class App {
     middleware() {
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+    }
+    // Add Access-Control-Allow Header to HTTP response 
+    addAccessControl() {
+        this.expressApp.use((req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); // Replace with your client's URL
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+            res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization');
+            next();
+        });
     }
     // Configure API endpoints.
     routes() {
