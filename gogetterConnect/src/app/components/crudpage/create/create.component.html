@@ -1,0 +1,77 @@
+<!--HTML for goal create form-->
+<h1>Goal Form</h1>
+<form (ngSubmit)="onSubmit()" #goalForm="ngForm">
+    <!--Selection box for category-->
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select class="form-control" id="category" required [(ngModel)]="newGoal.category" name="category" #category="ngModel">
+            <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+        </select>
+        <div [hidden]="category.valid || category.pristine" class="alert alert-danger">
+            Category is required
+        </div>
+    </div>
+
+    <!--Input box for title-->
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" required [(ngModel)]="newGoal.title" name="title" #title="ngModel">
+        <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+            Title is required
+        </div>
+    </div>
+
+    <!--Text box for description-->
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea type="text" class="form-control" id="description" [(ngModel)]="newGoal.description" name="description" rows="3" placeholder="Enter description"></textarea>
+    </div>
+
+
+    <button type="submit" class="btn btn-success" [disabled]="!goalForm.form.valid">Save</button>
+
+</form>
+
+
+<!-- <label for="goal-name">Hero name: </label>
+<input type="text" [(ngModel)]="goalName" id="goal-name">
+
+<button type="button" [disabled]="!goalName"
+(click)="add(goalName)">Add hero</button> -->
+
+
+
+<!--READ ALL GOAL TO DELETE-->
+<button type="button" (click)="getGoals()">
+    GET ALL GOALS
+</button>
+
+<ul class="goals">
+    <li *ngFor="let goal of goals">
+        <p>{{ goal.goalId || -1 }}</p>
+        <p>{{ goal.title || -1 }}</p>
+        <p>{{ goal.description || -1 }}</p>
+    </li>
+</ul>
+
+
+
+<!-- <form (ngSubmit)="onSubmit()"> -->
+<!-- <div class="form-group">
+        <label for="category">Category</label>
+        <select class="form-control" [(ngModel)]="category" id="category">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        <div *ngIf="!category">Category is required.</div>
+    </div> -->
+<!-- <div class="form-group">
+        <label for="title">Title</label>
+        <textarea class="form-control" [(ngModel)]="createForm.title" id="title" rows="1" placeholder="Enter title"></textarea> -->
+
+
+<!-- [disabled]="!createForm.title || !createForm.category" -->
+<!-- </form> -->
