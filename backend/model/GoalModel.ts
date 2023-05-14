@@ -54,7 +54,7 @@ class GoalModel {
                   }
                   else {
                       console.log('New goal added successfully')
-                      response.send('New goal added successfully');
+                      response.json({message: 'New goal added successfully'});
                   }
               });
   }
