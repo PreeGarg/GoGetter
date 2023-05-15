@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoryComponent } from './components/category/category.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { UpdateComponent } from './components/crudpage/update/update.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { UpdateComponent } from './components/crudpage/update/update.component';
     CategoryComponent,
     TimelineComponent,
     UpdateComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,

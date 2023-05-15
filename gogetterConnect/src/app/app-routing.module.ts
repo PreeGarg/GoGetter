@@ -8,6 +8,7 @@ import { CreateComponent } from './components/crudpage/create/create.component';
 import { MessagesComponent } from './components/crudpage/messages/messages.component';
 import { CategoryComponent } from './components/category/category.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'create', component: CreateComponent },
   { path: 'category', component:CategoryComponent},
   { path: 'timeline', component:TimelineComponent},
+  { path: 'summary', component:SummaryComponent},
 ];
 
 @NgModule({
