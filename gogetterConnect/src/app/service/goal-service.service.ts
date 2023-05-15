@@ -66,6 +66,16 @@ export class GoalService {
         catchError(this.handleError('getAllGoals', []))
       );
   }
+  
+  /** GET one goal from the server using goalId */
+  getGoalById(goalId: string): Observable<IGoalModelAngular> {
+    console.log(`Getting goal with ID: ${goalId}`);
+    const url = `${this.appGoalURL}/${goalId}`;
+    return this.http.get<IGoalModelAngular>(url)
+      .pipe(
+        catchError(this.handleError<IGoalModelAngular>('getGoalById'))
+      );
+  }
 
   /** POST: add a new goal to the database */
   addNewGoal(newGoal: GoalModel): Observable<GoalModel> {
@@ -76,7 +86,25 @@ export class GoalService {
       );
   }
 
+   /** PUT: update a goal to the database */
+  updateGoal(goalId: string, updatedGoal: GoalModel): Observable<GoalModel> {
+    console.log(`Updating goal with ID: ${goalId}`);
+    const url = `${this.appGoalURL}/${goalId}`;
+    return this.http.put<GoalModel>(url, updatedGoal)
+      .pipe(
+        catchError(this.handleError<GoalModel>('updateGoal'))
+      );
+  }
 
+  // DELETE: Delete a goal from the server
+  deleteGoal(goalId: string): Observable<void> {
+    console.log(`Deleting goal with ID: ${goalId}`);
+    const url = `${this.appGoalURL}/${goalId}`;
+    return this.http.delete<void>(url)
+      .pipe(
+        catchError(this.handleError<void>('deleteGoal'))
+      );
+  }
 
   // /* GET heroes whose name contains search term */
   // searchHeroes(term: string): Observable<Hero[]> {

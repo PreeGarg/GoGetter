@@ -1,75 +1,22 @@
-<header>
-  <div class="container">
-    <!--Display the header with the logo and the summary report picture and profile-->
-    <div class="row">
-      <nav class="navbar  sticky-top flex-md-nowrap p-0  shadow navbar-light" style="background-color: #efebe2;">
-        <!--Display the logo image-->
-        <div class="container-fluid">
-          <div class="col-sm-10">
-            <img src="assets/image/logo.png" height="75px" width="200px">
-
-          </div>
-
-          <!--Display the pie chart which acts as the summary report-->
-
-          <div class="col-sm">
-            <div class="pie-chart">
-              <img src="assets/image/pie.png" alt="mdo" width="32" height="32" class="rounded-circle">
-            </div>
-          </div>
-
-          <!--TODO: Add the dropdown button to the user profile-->
-          <!-- Display the profile of the user-->
-          <div class="col-sm">
-            <div class="profile-pic">
-              <img src="assets/image/user.png" alt="mdo" width="32" height="32" class="rounded-circle">
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #efebe2;">
+  <img src="assets/image/logo.png" height="75px" width="200px">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/category" style="color: purple" href="#">Category</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/timeline" style="color:purple;" href="#">Timeline</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      <img src="../assets/image/pie.png" width="32" height="32" class="rounded-circle">
+      &nbsp; &nbsp;
+      <img src="../assets/image/user.png" alt="mdo" width="32" height="32" class="rounded-circle">
+    </span>
   </div>
-</header>
-
-
-
-
-<!-- <div class="container">
-
-    <a [routerLink]="['/create']" class="btn btn-lg btn-primary" role="button">CREATE A GOAL!!!</a>
-    <p></p>
-    <a [routerLink]="['/read']" class="btn btn-lg btn-primary" role="button">GET THE GOALS!!!</a>
-    <p></p> -->
-
-    <!-- Static navbar -->
-    <!-- <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-        <a class="navbar-brand" href="index.html">To Do</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="#">Home</a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">List<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Create</a></li>
-            <li><a href="index2.html">Active</a></li>
-            <li><a href="#">Disabled</a></li>
-          </ul>
-          </li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Shared<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Active</a></li>
-            <li><a href="#">Pending</a></li>
-          </ul>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Login</a></li>
-        </ul>
-        </div>
-      </div>
-
-  </div>  -->
+</nav>

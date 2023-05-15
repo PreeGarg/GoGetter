@@ -28,6 +28,7 @@ import { ReadComponent } from './components/crudpage/read/read.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoryComponent } from './components/category/category.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { UpdateComponent } from './components/crudpage/update/update.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     ReadComponent,
     CategoryComponent,
     TimelineComponent,
+    UpdateComponent,
   ],
   imports: [
     BrowserModule,
