@@ -10,35 +10,30 @@ import { IGoalModelAngular } from 'src/app/share/model/IGoalModelAngular';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent {
-
-  listsObservable: Observable<IGoalModelAngular[]>;
-
+  goalsObservable: Observable<IGoalModelAngular[]>;
   goals: IGoalModelAngular[] = [];
 
-
-  constructor(private goalService$: GoalService, activatedRoute: ActivatedRoute) {
+  constructor(private goalService: GoalService, activatedRoute: ActivatedRoute) {
     // This is for getting all of the goals
-    this.listsObservable = goalService$.getAllGoals();
+    this.goalsObservable = goalService.getAllGoals();
 
-   this.listsObservable.subscribe((result) => {
+   this.goalsObservable.subscribe((result) => {
       this.goals = result;
     })
 
-
-
-
-
-
-    // This is for testing to call the temporary data.ts file to see if html is the issue. But it is not.
-    //this.goals = goalService$.getAll();
-    //console.log("It is listening to get the getListsIndex");
-
-
   }
 
+  getGoals(): void {
+    console.log("get goals")
+    this.goalService.getAllGoals().subscribe(goals => (this.goals = goals));
+  }
 
-
-
+  deleteGoal(goalId: string): void{
+    this.goalService.deleteGoal(goalId).subscribe(() => {
+      // Refresh the goals list after successful deletion
+      this.getGoals();
+    });
+  }
 
   ngOnInit() {
     //this.getDataFromAPI();
