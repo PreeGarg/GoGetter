@@ -29,10 +29,10 @@ describe('Test "Get Multiple Goals"', function () {
 			});
         });
 
-    	// Return that it is a json
-		it('Should be a json', function (){
+    // Return that it is a json
+	it('Should be a json', function (){
 			expect(response).to.be.json; 
-		}); 
+	}); 
 
 	// Return an array of objects 
     it('Should return an array object with more than 1 object', function (){
