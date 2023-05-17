@@ -90,6 +90,11 @@ describe('Test "Get Single Goal"', function () {
 				done();
 			});
 	});
+
+	// Return that it is a json
+	it('Should be a json', function (){
+		expect(response).to.be.json; 
+	}); 
 		
 	// Return an array with the goalId = 1
 	it('Should return an array object with 1 object', function (){
@@ -169,6 +174,10 @@ describe('Test "Get Goals By Category"', function () {
 						done();
 					});
 				});
+			    // Return that it is a json
+	it('Should be a json', function (){
+		expect(response).to.be.json; 
+}); 
 			
 			it('Should return an array object with at least 1 object', function (){
 				expect(response).to.have.status(200);
