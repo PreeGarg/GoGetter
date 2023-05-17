@@ -163,49 +163,54 @@ describe('Test "Get Goals By Category"', function () {
 			var requestResult;
 			var response;
 				 
-			before(function (done) {
-				chai.request("http://localhost:8080")
-					.get("/app/goal?category=Health")
-					.end(function (err, res) {
-						requestResult = res.body;
-						response = res;
-						expect(err).to.be.null;
-						expect(res).to.have.status(200);
-						done();
-					});
-				});
-			    // Return that it is a json
+	before(function (done) {
+		chai.request("http://localhost:8080")
+			.get("/app/goal?category=Health")
+			.end(function (err, res) {
+				requestResult = res.body;
+				response = res;
+				expect(err).to.be.null;
+				expect(res).to.have.status(200);
+				done();
+			});
+	});
+
+	// Return that it is a json
 	it('Should be a json', function (){
 		expect(response).to.be.json; 
-}); 
+	}); 
+	
+	// Return at least one object 
+	it('Should return an array object with at least 1 object', function (){
+		expect(response).to.have.status(200);
+		expect(response).to.have.headers;
+	});
+    
+	// Check for known properties 
+	it('The entry in the array has known properties', function(){
+		expect(requestResult[0]).to.include.keys('description');
+		expect(requestResult[0]).to.have.property('reminder');
+		expect(response.body).to.not.be.a.string;
+	});
 			
-			it('Should return an array object with at least 1 object', function (){
-				expect(response).to.have.status(200);
-				expect(response).to.have.headers;
-			});
-			
-			it('The entry in the array has known properties', function(){
-				expect(requestResult[0]).to.include.keys('description');
-				expect(requestResult[0]).to.have.property('reminder');
-				expect(response.body).to.not.be.a.string;
-			});
-			it('The elements in the array have the expected properties', function(){
-				expect(response.body).to.satisfy(
-					function (body) {
-						for (var i = 0; i < body.length; i++) {
-							expect(body[i]).to.have.property('title');
-							expect(body[i]).to.have.property('description');
-							expect(body[i]).to.have.property('goalId');
-							expect(body[i]).to.have.property('userId');
-							expect(body[i]).to.have.property('startDate');
-							expect(body[i]).to.have.property('endDate');
-							expect(body[i]).to.have.property('category');
-							expect(body[i]).to.have.property('reminder');
-							expect(body[i]).to.have.property('progress');
-							expect(body[i]).to.have.property('userId').that.is.a('string');
-						}
-						return true;
-					});
-			});	
+	// Check for having the expected properties 
+	it('The elements in the array have the expected properties', function(){
+		expect(response.body).to.satisfy(
+			function (body) {
+				for (var i = 0; i < body.length; i++) {
+					expect(body[i]).to.have.property('title');
+					expect(body[i]).to.have.property('description');
+					expect(body[i]).to.have.property('goalId');
+					expect(body[i]).to.have.property('userId');
+					expect(body[i]).to.have.property('startDate');
+					expect(body[i]).to.have.property('endDate');
+					expect(body[i]).to.have.property('category');
+					expect(body[i]).to.have.property('reminder');
+					expect(body[i]).to.have.property('progress');
+					expect(body[i]).to.have.property('userId').that.is.a('string');
+				}
+			return true;
+		});
+	});	
 			
 });
